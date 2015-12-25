@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.BorderPane?>
+
+<BorderPane prefHeight="538.0" prefWidth="564.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="nosnice.DetectorController">
+  <!-- TODO Add Nodes -->
+  <center>
+    <ImageView fx:id="mjestoZaSliku" fitHeight="380.0625" fitWidth="506.75001680726285" pickOnBounds="true" preserveRatio="true">
+      <BorderPane.margin>
+        <Insets left="8.0" right="8.0" />
+      </BorderPane.margin>
+    </ImageView>
+  </center>
+  <left>
+    <VBox prefHeight="200.0" prefWidth="100.0">
+      <children>
+        <Button id="ucitajGumb" fx:id="ucitajGumb" minWidth="95.0" mnemonicParsing="false" onAction="#ucitajSliku" text="Učitaj sliku">
+          <VBox.margin>
+            <Insets left="5.0" top="20.0" />
+          </VBox.margin>
+        </Button>
+        <Button id="detLiceGumb" fx:id="detLiceGumb" minWidth="95.0" mnemonicParsing="false" onAction="#detektirajLice" text="Detektiraj Lice">
+          <VBox.margin>
+            <Insets left="5.0" top="20.0" />
+          </VBox.margin>
+        </Button>
+        <Button fx:id="odrLiceGumb" minWidth="95.0" mnemonicParsing="false" onAction="#odreziLice" text="Odreži lice">
+          <VBox.margin>
+            <Insets left="5.0" top="20.0" />
+          </VBox.margin>
+        </Button>
+      </children>
+    </VBox>
+  </left>
+</BorderPane>

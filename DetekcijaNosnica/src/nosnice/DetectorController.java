@@ -37,10 +37,20 @@ public class DetectorController {
 	private ImageView mjestoZaSliku;
 	@FXML
 	private Button ucitajGumb;
+	@FXML
+	private Button detUstaGumb;
+	@FXML
+	private Button odrUstaGumb;
+	@FXML
+	private Button detOciGumb;
+	@FXML
+	private Button odrOciGumb;
 	/**
 	 * matrica slike koja je prikazana - stalno se mijenja
 	 */
 	private Mat rgb;
+	private int brojLica = 0;
+	private Rect rectCrop = null;
 
 	@FXML
 	private void ucitajSliku() {
@@ -81,9 +91,13 @@ public class DetectorController {
 
 				// each rectangle in faces is a face: draw them!
 				Rect[] facesArray = faces.toArray();
-				System.out.println("broj lica:" + facesArray.length);
+				brojLica = facesArray.length;
+				System.out.println("broj lica:" + brojLica);
 				for (int i = 0; i < facesArray.length; i++) {
 					Imgproc.rectangle(rgb, facesArray[i].tl(), facesArray[i].br(), new Scalar(0, 255, 0), 3);
+					// ovdje stvaram pravokutnik koji mi je ROI(region of interest)
+					// da bi mogao odrezat sve sto nije lice kasnije
+					rectCrop = new Rect(facesArray[i].tl(), facesArray[i].br());
 				}
 				Image slikaZaVan = mat2Image(rgb);
 				mjestoZaSliku.setImage(slikaZaVan);
@@ -121,6 +135,107 @@ public class DetectorController {
 
 	@FXML
 	private void odreziLice() {
+		// na fotografiji mora biti jedno lice, ako nije javit ce gresku
+		if (brojLica != 1) {
+			System.out.println("Mora biti jedno lice na slici!");
+		} else {
+			if (rectCrop == null) {
+				System.out.println("Greska kod pravokutnika koji oznacava ROI");
+			} else {
+				rgb = new Mat(rgb,rectCrop);
+				Image slikaZaVan = mat2Image(rgb);
+				mjestoZaSliku.setImage(slikaZaVan);		
+			}
+		}
+	}
+	
+	/**
+	 * metoda radi na isti nacin kao i <code>detektriajLice</code>
+	 * jedina razlika je sto ovdje primjenjujem algoritam za usta
+	 */
+	@FXML
+	private void detektirajUsta() {
+		if (rgb != null) {
+			MatOfRect mouths = new MatOfRect();
+			Mat grayFrame = new Mat();
+			// face cascade classifier
+			CascadeClassifier mouthCascade = new CascadeClassifier(
+					"C:/BraneProjekt/Mouth.xml");
+			// convert the frame in gray scale
+			Imgproc.cvtColor(rgb, grayFrame, Imgproc.COLOR_BGR2GRAY);
+			// equalize the frame histogram to improve the result
+			Imgproc.equalizeHist(grayFrame, grayFrame);
 
+			if (!grayFrame.empty()) {
+				// detect faces
+				mouthCascade.detectMultiScale(grayFrame, mouths, 1.1, 2, 0 | Objdetect.CASCADE_SCALE_IMAGE,
+						new Size(0.3*mjestoZaSliku.getFitWidth(), 0.3*mjestoZaSliku.getFitHeight()), new Size());
+
+				// each rectangle in faces is a face: draw them!
+				Rect[] mouthsArray = mouths.toArray();
+				brojLica = mouthsArray.length;
+				System.out.println("broj usta:" + brojLica);
+				for (int i = 0; i < mouthsArray.length; i++) {
+					Imgproc.rectangle(rgb, mouthsArray[i].tl(), mouthsArray[i].br(), new Scalar(0, 255, 0), 3);
+					// ovdje stvaram pravokutnik koji mi je ROI(region of interest)
+					// da bi mogao odrezat sve sto nije lice kasnije
+					rectCrop = new Rect(mouthsArray[i].tl(), mouthsArray[i].br());
+				}
+				Image slikaZaVan = mat2Image(rgb);
+				mjestoZaSliku.setImage(slikaZaVan);
+			}
+		} else {
+			System.out.println("Slika nije ucitana!");
+		}
+	}
+	
+	@FXML
+	private void odreziUsta() {
+		
+	}
+	
+	/**
+	 * metoda radi na isti nacin kao i <code>detektriajLice</code>
+	 * jedina razlika je sto ovdje primjenjujem algoritam za oci
+	 */
+	@FXML
+	private void detektirajOci() {
+		if (rgb != null) {
+			MatOfRect eyes = new MatOfRect();
+			Mat grayFrame = new Mat();
+			// face cascade classifier
+			CascadeClassifier eyeCascade = new CascadeClassifier(
+					"C:/BraneProjekt/eyes.xml");
+			// convert the frame in gray scale
+			Imgproc.cvtColor(rgb, grayFrame, Imgproc.COLOR_BGR2GRAY);
+			// equalize the frame histogram to improve the result
+			Imgproc.equalizeHist(grayFrame, grayFrame);
+
+			if (!grayFrame.empty()) {
+				// detect faces
+				eyeCascade.detectMultiScale(grayFrame, eyes, 1.1, 2, 0 | Objdetect.CASCADE_SCALE_IMAGE,
+						new Size(0.05*mjestoZaSliku.getFitWidth(), 0.05*mjestoZaSliku.getFitHeight()), new Size());
+
+				// each rectangle in faces is a face: draw them!
+				Rect[] eyesArray = eyes.toArray();
+				brojLica = eyesArray.length;
+				System.out.println("broj ociju:" + brojLica);
+				for (int i = 0; i < eyesArray.length; i++) {
+					Imgproc.rectangle(rgb, eyesArray[i].tl(), eyesArray[i].br(), new Scalar(0, 255, 0), 3);
+					// ovdje stvaram pravokutnik koji mi je ROI(region of interest)
+					// da bi mogao odrezat sve sto nije lice kasnije
+					rectCrop = new Rect(eyesArray[i].tl(), eyesArray[i].br());
+				}
+				Image slikaZaVan = mat2Image(rgb);
+				mjestoZaSliku.setImage(slikaZaVan);
+			}
+		} else {
+			System.out.println("Slika nije ucitana!");
+		}
+	}
+	
+	@FXML
+	private void odreziOci() {
+		
 	}
 }

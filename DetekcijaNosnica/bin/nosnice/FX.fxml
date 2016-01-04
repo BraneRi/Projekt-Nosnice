@@ -26,22 +26,59 @@
         </Button>
         <Button fx:id="detLiceGumb" minWidth="95.0" mnemonicParsing="false" onAction="#detektirajLice" text="Detektiraj lice">
           <VBox.margin>
-            <Insets left="5.0" top="20.0"/>
+            <Insets left="5.0" top="20.0" fx:id="x1" />
           </VBox.margin>
         </Button>
         <Button fx:id="odrLiceGumb" minWidth="95.0" mnemonicParsing="false" onAction="#odreziLice" text="Odreži lice">
           <VBox.margin>
-            <Insets left="5.0" top="20.0"/>
+            <Insets left="5.0" top="20.0" fx:id="x1" />
           </VBox.margin>
         </Button>
-        <Button fx:id="detUstaGumb" minWidth="95.0" mnemonicParsing="false" onAction="#detektirajUsta" text="Detektiraj usta">
+        <Button fx:id="detNosGumb" minWidth="95.0" mnemonicParsing="false" onAction="#detektirajNos" text="Detektiraj nos">
           <VBox.margin>
-            <Insets left="5.0" top="20.0"/>
+            <Insets left="5.0" top="20.0" fx:id="x1" />
           </VBox.margin>
         </Button>
-        <Button fx:id="odrUstaGumb" minWidth="95.0" mnemonicParsing="false" onAction="#odreziUsta" text="Odreži usta" VBox.margin="$x1" />
+        <Button fx:id="odrNosGumb" minWidth="95.0" mnemonicParsing="false" onAction="#odreziNos" text="Odreži nos" VBox.margin="$x1" />
         <Button fx:id="detOciGumb" minWidth="95.0" mnemonicParsing="false" onAction="#detektirajOci" text="Detektiraj oči" VBox.margin="$x1" />
         <Button fx:id="odrOciGumb" minWidth="95.0" mnemonicParsing="false" onAction="#odreziOci" text="Odreži oči" VBox.margin="$x1" />
+        <Button id="smanjiRez" fx:id="smanjiRezGumb" minWidth="95.0" mnemonicParsing="false" onAction="#smanjiRezoluciju" text="- Rezolucija">
+          <VBox.margin>
+            <Insets left="5.0" top="20.0" fx:id="x1" />
+          </VBox.margin>
+        </Button>
+        <Button fx:id="cannyGumb" minWidth="95.0" mnemonicParsing="false" onAction="#canny" text="Izvrši canny">
+          <VBox.margin>
+            <Insets left="5.0" top="20.0" fx:id="x1" />
+          </VBox.margin>
+        </Button>
+        <Button fx:id="vratiRGBGumb" minWidth="95.0" mnemonicParsing="false" onAction="#vratiRgbSliku" text="Vrati RGB">
+          <VBox.margin>
+            <Insets left="5.0" top="20.0" fx:id="x1" />
+          </VBox.margin>
+        </Button>
+        <Label text="Donji prag">
+          <VBox.margin>
+            <Insets left="20.0" top="5.0" fx:id="x3" />
+          </VBox.margin>
+        </Label>
+        <HBox prefHeight="36.0" prefWidth="109.0">
+          <children>
+            <Button fx:id="povecajDonjiPragGumb" mnemonicParsing="false" onAction="#povecajDonjiPrag" text="+">
+              <HBox.margin>
+                <Insets left="5.0" top="5.0" fx:id="x2" />
+              </HBox.margin>
+            </Button>
+            <Button fx:id="smanjiDonjiPragGumb" minWidth="29.0" mnemonicParsing="false" onAction="#smanjiDonjiPrag" text="-" HBox.margin="$x2" />
+          </children>
+        </HBox>
+        <Label text="Gornji prag" VBox.margin="$x3" />
+        <HBox prefHeight="34.0" prefWidth="95.0">
+          <children>
+            <Button fx:id="povecajGronjiPragGumb" mnemonicParsing="false" onAction="#povecajGornjiPrag" text="+" HBox.margin="$x2" />
+            <Button fx:id="smanjiGornjiPragGumb" minWidth="29.0" mnemonicParsing="false" onAction="#smanjiGornjiPrag" text="-" HBox.margin="$x2" />
+          </children>
+        </HBox>
       </children>
     </VBox>
   </left>
